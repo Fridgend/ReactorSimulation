@@ -1,0 +1,10 @@
+^C:\USERS\THEOD\ONEDRIVE\SKRIVBORD\REACTOR SIMULATOR\BUILD\CMAKEFILES\62B7C8430E51FC12B36FEB81F6EBDF8A\GENERATE.STAMP.RULE
+setlocal
+C:\Users\theod\Documents\cmake-3.30.0-rc4-windows-x86_64\bin\cmake.exe "-SC:/Users/theod/OneDrive/Skrivbord/Reactor Simulator" "-BC:/Users/theod/OneDrive/Skrivbord/Reactor Simulator/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/theod/OneDrive/Skrivbord/Reactor Simulator/build/reactor.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
