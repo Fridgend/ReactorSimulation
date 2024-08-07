@@ -1,0 +1,45 @@
+#pragma once
+
+#include "fuel.h"
+#include "moderator.h"
+#include "coolant.h"
+
+class Simulation {
+public:
+	Simulation(Fuel fuel, Moderator moderator, Coolant coolant) : fuel(fuel), moderator(moderator), coolant(coolant), Keff(0), eta(0), epsilon(0), p(0), pth(0), f(0), fth(0) {}
+
+	void step();
+	void set_fuel(Fuel fuel);
+	void set_moderator(Moderator moderator);
+	void set_coolant(Coolant coolant);
+
+	float calculateKeff();
+	float calculateEta();
+	float calculateEpsilon();
+	float calculateP();
+	float calculatePth();
+	float calculateF();
+	float calculateFth();
+
+	float getKeff() { return this->Keff; }
+	float getEta() { return this->eta; }
+	float getEpsilon() { return this->epsilon; }
+	float getP() { return this->p; }
+	float getPth() { return this->pth; }
+	float getF() { return this->f; }
+	float getFth() { return this->fth; }
+
+private:
+	float Keff;								// Effective multiplication factor
+
+	float eta;								// Reproduction factor
+	float epsilon;							// Fast fission factor	
+	float p;								// Resonance escape probability
+	float pth;								// Thermal nonleakage probability
+	float f;								// Thermal utilization factor
+	float fth;								// Fast nonleakage factor
+
+	Fuel fuel;
+	Moderator moderator;
+	Coolant coolant;
+};

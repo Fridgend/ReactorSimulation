@@ -4,6 +4,12 @@
     <ClCompile Include="C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\src\fuel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\src\isotopes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\src\moderator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\src\poisonSimulation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
