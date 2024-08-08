@@ -328,8 +328,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\src\coolant.cpp" />
     <ClCompile Include="C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\src\fuel.cpp" />
     <ClCompile Include="C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\src\isotopes.cpp" />
+    <ClCompile Include="C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\src\material.cpp" />
     <ClCompile Include="C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\src\moderator.cpp" />
     <ClCompile Include="C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\src\poisonSimulation.cpp" />
     <ClCompile Include="C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\src\simulation.cpp" />

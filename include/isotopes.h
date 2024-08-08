@@ -10,7 +10,25 @@ enum Isotope {
 	U235,
 	U238,
 	O16,
-	H1
+	H1,
+	Zr90,
+	Sn120,
+	Fe56,
+	Cr52,
+	Ni58,
+	C12,
+	Mn55,
+	Mo98,
+	V51,
+	Si28,
+	Al27,
+	N14,
+	P31,
+	S32,
+	Cu63,
+	As75,
+	Co59,
+	B10
 };
 
 extern std::unordered_map<Isotope, std::unordered_map<std::string, float>> isotope_properties;

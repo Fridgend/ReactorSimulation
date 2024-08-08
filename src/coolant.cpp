@@ -1,8 +1,8 @@
 #include "coolant.h"
 
 cH2O::cH2O() {
-	update_macroscopic_absorption_cross_section();
-	this->name = "H2O - Water"
+	this->update_macroscopic_absorption_cross_section();
+	this->name = "H2O - Water";
 }
 
 void cH2O::update_macroscopic_absorption_cross_section() {

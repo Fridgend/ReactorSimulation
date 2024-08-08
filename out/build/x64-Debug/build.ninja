@@ -49,6 +49,14 @@ cmake_ninja_workdir = C$:\Users\theod\OneDrive\Skrivbord\Reactor$ Simulator\out\
 
 build cmake_object_order_depends_target_reactor: phony || CMakeFiles\reactor.dir
 
+build CMakeFiles\reactor.dir\src\coolant.cpp.obj: CXX_COMPILER__reactor_unscanned_Debug C$:\Users\theod\OneDrive\Skrivbord\Reactor$ Simulator\src\coolant.cpp || cmake_object_order_depends_target_reactor
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I"C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\include"
+  OBJECT_DIR = CMakeFiles\reactor.dir
+  OBJECT_FILE_DIR = CMakeFiles\reactor.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\reactor.dir\
+  TARGET_PDB = reactor.pdb
+
 build CMakeFiles\reactor.dir\src\fuel.cpp.obj: CXX_COMPILER__reactor_unscanned_Debug C$:\Users\theod\OneDrive\Skrivbord\Reactor$ Simulator\src\fuel.cpp || cmake_object_order_depends_target_reactor
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   INCLUDES = -I"C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\include"
@@ -58,6 +66,14 @@ build CMakeFiles\reactor.dir\src\fuel.cpp.obj: CXX_COMPILER__reactor_unscanned_D
   TARGET_PDB = reactor.pdb
 
 build CMakeFiles\reactor.dir\src\isotopes.cpp.obj: CXX_COMPILER__reactor_unscanned_Debug C$:\Users\theod\OneDrive\Skrivbord\Reactor$ Simulator\src\isotopes.cpp || cmake_object_order_depends_target_reactor
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I"C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\include"
+  OBJECT_DIR = CMakeFiles\reactor.dir
+  OBJECT_FILE_DIR = CMakeFiles\reactor.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\reactor.dir\
+  TARGET_PDB = reactor.pdb
+
+build CMakeFiles\reactor.dir\src\material.cpp.obj: CXX_COMPILER__reactor_unscanned_Debug C$:\Users\theod\OneDrive\Skrivbord\Reactor$ Simulator\src\material.cpp || cmake_object_order_depends_target_reactor
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   INCLUDES = -I"C:\Users\theod\OneDrive\Skrivbord\Reactor Simulator\include"
   OBJECT_DIR = CMakeFiles\reactor.dir
@@ -97,7 +113,7 @@ build CMakeFiles\reactor.dir\src\simulation.cpp.obj: CXX_COMPILER__reactor_unsca
 #############################################
 # Link the executable reactor.exe
 
-build reactor.exe: CXX_EXECUTABLE_LINKER__reactor_Debug CMakeFiles\reactor.dir\src\fuel.cpp.obj CMakeFiles\reactor.dir\src\isotopes.cpp.obj CMakeFiles\reactor.dir\src\moderator.cpp.obj CMakeFiles\reactor.dir\src\poisonSimulation.cpp.obj CMakeFiles\reactor.dir\src\simulation.cpp.obj
+build reactor.exe: CXX_EXECUTABLE_LINKER__reactor_Debug CMakeFiles\reactor.dir\src\coolant.cpp.obj CMakeFiles\reactor.dir\src\fuel.cpp.obj CMakeFiles\reactor.dir\src\isotopes.cpp.obj CMakeFiles\reactor.dir\src\material.cpp.obj CMakeFiles\reactor.dir\src\moderator.cpp.obj CMakeFiles\reactor.dir\src\poisonSimulation.cpp.obj CMakeFiles\reactor.dir\src\simulation.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

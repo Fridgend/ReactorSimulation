@@ -3,10 +3,20 @@
 #include "fuel.h"
 #include "moderator.h"
 #include "coolant.h"
+#include "material.h"
 
 class Simulation {
 public:
-	Simulation(Fuel fuel, Moderator moderator, Coolant coolant) : fuel(fuel), moderator(moderator), coolant(coolant), Keff(0), eta(0), epsilon(0), p(0), pth(0), f(0), fth(0) {}
+	Simulation(
+		Fuel fuel, Moderator moderator, Coolant coolant,
+		Material fuelCladding, Material pressureVessel,
+		Material controlRods
+	) : 
+		fuel(fuel), moderator(moderator), coolant(coolant),
+		Keff(0), eta(0), epsilon(0), p(0), pth(0), f(0), fth(0),
+		fuelCladding(fuelCladding), pressureVessel(pressureVessel),
+		controlRods(controlRods)
+	{}
 
 	void step();
 	void set_fuel(Fuel fuel);
@@ -42,4 +52,11 @@ private:
 	Fuel fuel;
 	Moderator moderator;
 	Coolant coolant;
+
+	Material fuelCladding;
+	Material pressureVessel;
+	Material controlRods;
+
+	float controlRodsDepth = 1.0f;
+	float maxControlRodFraction = 0.7f;
 };

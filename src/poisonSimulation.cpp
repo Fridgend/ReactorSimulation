@@ -17,10 +17,15 @@ int main() {
 	mH2O moderator;
 	cH2O coolant;
 
-	Simulation simulation(fuel, moderator, coolant);
+	smZircaloy2 fuelCladding;
+	smSA508_Steel pressureVessel;
+	BoronCarbide controlRods;
+
+	Simulation simulation(fuel, moderator, coolant, fuelCladding, pressureVessel, controlRods);
 	simulation.step();
 	std::cout << "Keff: " << simulation.getKeff() << std::endl;
 	std::cout << "Eta: " << simulation.getEta() << std::endl;
-	std::cout << "Fuel macroscopic: " << fuel.macroscopic_absorption_cross_section << std::endl;
+	std::cout << "F: " << simulation.getF() << std::endl;
+
 	return 0;
 }

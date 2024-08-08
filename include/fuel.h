@@ -17,7 +17,7 @@ struct Fuel {
 	float macroscopic_absorption_cross_section;
 	float molar_mass;
 
-	std::vector<std::pair<Isotope, float>> composition;	// neutrons per fission, fission cross section, absorption cross section, fraction
+	std::vector<std::pair<Isotope, float>> composition;	// isotope, fraction
 
 private:
 	float density = 0.0f;						// g/cm^3

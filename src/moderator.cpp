@@ -1,8 +1,8 @@
 #include "moderator.h"
 
 mH2O::mH2O() {
-	update_macroscopic_absorption_cross_section();
-	this->name = "H2O - Water"
+	this->update_macroscopic_absorption_cross_section();
+	this->name = "H2O - Water";
 }
 
 void mH2O::update_macroscopic_absorption_cross_section() {
