@@ -57,6 +57,6 @@ private:
 	Material pressureVessel;
 	Material controlRods;
 
-	float controlRodsDepth = 1.0f;
+	float controlRodsDepth = 0.0f;
 	float maxControlRodFraction = 0.7f;
 };
