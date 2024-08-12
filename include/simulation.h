@@ -4,13 +4,14 @@
 #include "moderator.h"
 #include "coolant.h"
 #include "material.h"
+#include "isotopes.h"
 
 class Simulation {
 public:
 	Simulation(
-		Fuel fuel, Moderator moderator, Coolant coolant,
-		Material fuelCladding, Material pressureVessel,
-		Material controlRods
+		Fuel* fuel, Moderator* moderator, Coolant* coolant,
+		Material* fuelCladding, Material* pressureVessel,
+		Material* controlRods
 	) : 
 		fuel(fuel), moderator(moderator), coolant(coolant),
 		Keff(0), eta(0), epsilon(0), p(0), pth(0), f(0), fth(0),
@@ -19,9 +20,9 @@ public:
 	{}
 
 	void step();
-	void set_fuel(Fuel fuel);
-	void set_moderator(Moderator moderator);
-	void set_coolant(Coolant coolant);
+	void set_fuel(Fuel* fuel);
+	void set_moderator(Moderator* moderator);
+	void set_coolant(Coolant* coolant);
 
 	float calculateKeff();
 	float calculateEta();
@@ -49,13 +50,13 @@ private:
 	float f;								// Thermal utilization factor
 	float fth;								// Fast nonleakage factor
 
-	Fuel fuel;
-	Moderator moderator;
-	Coolant coolant;
+	Fuel* fuel;
+	Moderator* moderator;
+	Coolant* coolant;
 
-	Material fuelCladding;
-	Material pressureVessel;
-	Material controlRods;
+	Material* fuelCladding;
+	Material* pressureVessel;
+	Material* controlRods;
 
 	float controlRodsDepth = 0.0f;
 	float maxControlRodFraction = 0.7f;

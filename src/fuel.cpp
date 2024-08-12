@@ -44,3 +44,15 @@ void UO2::update_composition(std::vector<std::pair<Isotope, float>> composition)
 		this->absorption_cross_section += isotope_properties[this->composition[i].first]["absorption_cross_section"] * this->composition[i].second;
 	}
 }
+
+float UO2::calculate_p_numerator() {
+	float sum = 0.0f;
+
+	for (std::pair<Isotope, float> isotopeFraction : this->composition) {
+		float isotopeNumberDensity = isotopeFraction.second * calculate_number_density(this->density, this->molar_mass);
+		float isotopeResonanceIntegral = integrate_resonance_cross_section(("../../data/cross_sections/total/ISOTOPE" + std::to_string(isotopeFraction.first) + ".txt").c_str());
+		sum += isotopeNumberDensity * isotopeResonanceIntegral;
+	}
+
+	return sum;
+}

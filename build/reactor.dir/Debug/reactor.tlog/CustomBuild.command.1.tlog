@@ -1,6 +1,6 @@
-^C:\USERS\THEOD\ONEDRIVE\SKRIVBORD\REACTOR SIMULATOR\CMAKELISTS.TXT
+^C:\USERS\USER1\DESKTOP\REACTORSIMULATION\CMAKELISTS.TXT
 setlocal
-C:\Users\theod\Documents\cmake-3.30.0-rc4-windows-x86_64\bin\cmake.exe "-SC:/Users/theod/OneDrive/Skrivbord/Reactor Simulator" "-BC:/Users/theod/OneDrive/Skrivbord/Reactor Simulator/build" --check-stamp-file "C:/Users/theod/OneDrive/Skrivbord/Reactor Simulator/build/CMakeFiles/generate.stamp"
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/User1/Desktop/ReactorSimulation -BC:/Users/User1/Desktop/ReactorSimulation/build --check-stamp-file C:/Users/User1/Desktop/ReactorSimulation/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

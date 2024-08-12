@@ -13,13 +13,13 @@ int main() {
 		{ U238, 0.97f }
 	};
 
-	UO2 fuel(composition);
-	mH2O moderator;
-	cH2O coolant;
+	Fuel* fuel = new UO2(composition);
+	Moderator* moderator = new mH2O;
+	Coolant* coolant = new cH2O;
 
-	smZircaloy2 fuelCladding;
-	smSA508_Steel pressureVessel;
-	BoronCarbide controlRods;
+	Material* fuelCladding = new smZircaloy2;
+	Material* pressureVessel = new smSA508_Steel;
+	Material* controlRods = new BoronCarbide;
 
 	Simulation simulation(fuel, moderator, coolant, fuelCladding, pressureVessel, controlRods);
 	simulation.step();

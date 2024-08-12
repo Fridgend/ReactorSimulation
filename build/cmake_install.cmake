@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/theod/OneDrive/Skrivbord/Reactor Simulator
+# Install script for directory: C:/Users/User1/Desktop/ReactorSimulation
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -47,6 +47,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-  file(WRITE "C:/Users/theod/OneDrive/Skrivbord/Reactor Simulator/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "C:/Users/User1/Desktop/ReactorSimulation/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
