@@ -35,7 +35,7 @@ float Simulation::calculateF() {
 	float fuel_macroscopic = this->fuel->macroscopic_absorption_cross_section;
 	float moderator_macroscopic = this->moderator->macroscopic_absorption_cross_section;
 	float coolant_macroscopic = (this->moderator->name != this->coolant->name) ? this->coolant->macroscopic_absorption_cross_section : 0.0f;
-	
+
 	float structural_material_macroscopic = (
 		this->fuelCladding->get_macroscopic_absorption_cross_section() +
 		this->pressureVessel->get_macroscopic_absorption_cross_section()

@@ -50,7 +50,7 @@ float UO2::calculate_p_numerator() {
 
 	for (std::pair<Isotope, float> isotopeFraction : this->composition) {
 		float isotopeNumberDensity = isotopeFraction.second * calculate_number_density(this->density, this->molar_mass);
-		float isotopeResonanceIntegral = integrate_resonance_cross_section(("../../data/cross_sections/total/ISOTOPE" + std::to_string(isotopeFraction.first) + ".txt").c_str());
+		float isotopeResonanceIntegral = integrate_resonance_cross_section(("data/cross_sections/total/ISOTOPE" + std::to_string(isotopeFraction.first) + ".txt").c_str());
 		sum += isotopeNumberDensity * isotopeResonanceIntegral;
 	}
 

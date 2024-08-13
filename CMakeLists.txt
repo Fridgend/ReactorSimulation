@@ -11,3 +11,8 @@ file(GLOB SOURCES "src/*.cpp")
 
 # Add executable
 add_executable(reactor ${SOURCES})
+
+# Post-build steps to copy assets
+add_custom_command(TARGET reactor POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/data $<TARGET_FILE_DIR:reactor>/data)
