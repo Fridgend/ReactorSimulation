@@ -13,8 +13,9 @@ int main() {
 		{ U238, 0.97f }
 	};
 
-	Fuel* fuel = new UO2(composition);
+	Fuel* fuel = new UO2(composition, 100.0f);
 	Moderator* moderator = new mH2O;
+	moderator->set_volume(1000.0f);
 	Coolant* coolant = new cH2O;
 
 	Material* fuelCladding = new smZircaloy2;

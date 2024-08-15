@@ -23,17 +23,20 @@ struct Fuel {
 	std::vector<std::pair<Isotope, float>> composition;	// isotope, fraction
 
 private:
-	float density = 0.0f;						// g/cm^3
+	float density = 0.0f;						// g/cm³
+	float volume = 0.0f;
 };
 
 struct UO2 : public Fuel {
-	UO2(std::vector<std::pair<Isotope, float>> composition);
+	UO2(std::vector<std::pair<Isotope, float>> composition, float volume);
 	void update_composition(std::vector<std::pair<Isotope, float>> composition);
 	void update_molar_mass();
 	void update_macroscopic_absorption_cross_section();
+	void set_volume(float volume);
 
 	float calculate_p_numerator() override;
 
 private:
-	float density = 10.97f;					// g/cm^3
+	float density = 10.97f;					// g/cm³
+	float volume = 0.0f;
 };

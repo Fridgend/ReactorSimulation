@@ -63,7 +63,10 @@ float Simulation::calculateF() {
 float Simulation::calculateP() {
 	float numerator = this->fuel->calculate_p_numerator();
 	float denominator = this->moderator->calculate_p_denominator();
-	float resonance_escape_probability = std::exp(-(numerator / denominator));
+
+	float effective_resonance_integral = 1.0f;
+
+	float resonance_escape_probability = std::exp(-(numerator / denominator)*effective_resonance_integral);
 
 	std::cout << "Resonance Escape Probability Numerator: " << numerator << std::endl;
 	std::cout << "Resonance Escape Probability Denominator: " << denominator << std::endl;
