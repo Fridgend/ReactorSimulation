@@ -5,6 +5,12 @@
 #include <unordered_map>
 #include <utility>
 #include <string>
+#include <sstream>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <chrono>
+#include <ctime>
 
 #include "isotopes.h"
 
@@ -18,25 +24,24 @@ struct Fuel {
 	float macroscopic_absorption_cross_section;
 	float molar_mass;
 
-	virtual float calculate_p_numerator() = 0;
+	virtual float calculate_p_numerator(float moderator_scattering) = 0;
+	virtual void write_total_macroscopic() = 0;
 
 	std::vector<std::pair<Isotope, float>> composition;	// isotope, fraction
 
 private:
 	float density = 0.0f;						// g/cm³
-	float volume = 0.0f;
 };
 
 struct UO2 : public Fuel {
-	UO2(std::vector<std::pair<Isotope, float>> composition, float volume);
+	UO2(std::vector<std::pair<Isotope, float>> composition);
 	void update_composition(std::vector<std::pair<Isotope, float>> composition);
 	void update_molar_mass();
 	void update_macroscopic_absorption_cross_section();
-	void set_volume(float volume);
 
-	float calculate_p_numerator() override;
+	float calculate_p_numerator(float moderator_scattering) override;
+	void write_total_macroscopic() override;
 
 private:
 	float density = 10.97f;					// g/cm³
-	float volume = 0.0f;
 };

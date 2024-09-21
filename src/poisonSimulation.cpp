@@ -13,9 +13,8 @@ int main() {
 		{ U238, 0.97f }
 	};
 
-	Fuel* fuel = new UO2(composition, 100.0f);
+	Fuel* fuel = new UO2(composition);
 	Moderator* moderator = new mH2O;
-	moderator->set_volume(1000.0f);
 	Coolant* coolant = new cH2O;
 
 	Material* fuelCladding = new smZircaloy2;
@@ -27,6 +26,8 @@ int main() {
 	std::cout << "Keff: " << simulation.getKeff() << std::endl;
 	std::cout << "Eta: " << simulation.getEta() << std::endl;
 	std::cout << "F: " << simulation.getF() << std::endl;
+	std::cout << "P: " << simulation.getP() << std::endl;
+	std::cout << "Epsilon: " << simulation.getEpsilon() << std::endl;
 
 	return 0;
 }

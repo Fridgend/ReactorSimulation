@@ -1,5 +1,10 @@
 #pragma once
 
+#include <vector>
+#include <utility>
+#include <chrono>
+#include <ctime>
+
 #include "fuel.h"
 #include "moderator.h"
 #include "coolant.h"
@@ -12,7 +17,7 @@ public:
 		Fuel* fuel, Moderator* moderator, Coolant* coolant,
 		Material* fuelCladding, Material* pressureVessel,
 		Material* controlRods
-	) : 
+	) :
 		fuel(fuel), moderator(moderator), coolant(coolant),
 		Keff(0), eta(0), epsilon(0), p(0), pth(0), f(0), fth(0),
 		fuelCladding(fuelCladding), pressureVessel(pressureVessel),
@@ -32,6 +37,8 @@ public:
 	float calculateF();
 	float calculateFth();
 
+	void write_total_macroscopic_cross_section_system();
+
 	float getKeff() { return this->Keff; }
 	float getEta() { return this->eta; }
 	float getEpsilon() { return this->epsilon; }
@@ -44,7 +51,7 @@ private:
 	float Keff;								// Effective multiplication factor
 
 	float eta;								// Reproduction factor
-	float epsilon;							// Fast fission factor	
+	float epsilon;								// Fast fission factor
 	float p;								// Resonance escape probability
 	float pth;								// Thermal nonleakage probability
 	float f;								// Thermal utilization factor

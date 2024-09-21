@@ -9,6 +9,8 @@
 #include <sstream>
 #include <fstream>
 #include <cmath>
+#include <map>
+#include <limits>
 
 enum Isotope {
 	U235,
@@ -84,7 +86,7 @@ inline void calculate_absorption_cross_section(const char* capture_cross_section
 	float energy, cross_section;
 	ss >> energy >> cross_section;
 
-	capture_xsection_data.push_back(std::make_pair(energy, cross_section));
+	capture_xsection_data.emplace_back(energy, cross_section);
     }
 
     capture_xsection_file.close();
@@ -105,7 +107,7 @@ inline void calculate_absorption_cross_section(const char* capture_cross_section
 	float energy, cross_section;
 	ss >> energy >> cross_section;
 
-	fission_xsection_data.push_back(std::make_pair(energy, cross_section));
+	fission_xsection_data.emplace_back(energy, cross_section);
     }
 
     fission_xsection_file.close();
@@ -123,53 +125,124 @@ inline void calculate_absorption_cross_section(const char* capture_cross_section
     }
 }
 
-// Calculates the resonance integral based on total cross-section data
-inline float integrate_resonance_cross_section(const char* cross_section_text_file) {
-    std::ifstream infile(cross_section_text_file);
-    if (!infile) {
-        std::cerr << "Error: Unable to open file '" << cross_section_text_file << "'." << std::endl;
-        return 0.0f;
-    }
+inline std::map<double, double> get_data_map(const char* file_name, double range_low=0.0, double range_high=10000000.0) {
+	std::map<double, double> energy_map;
+	std::ifstream infile(file_name);
 
-    std::vector<std::pair<float, float>> energy_cross_section_data;
-    std::string line;
-    int lineNr = 1;
+	if (!infile) {
+		std::cerr << "Error: Unable to open file '" << file_name << "'." << std::endl;
+		return energy_map;
+	}
 
-    while (getline(infile, line)) {
-        // Skip first two rows (headers)
-        if (lineNr < 3) {
-            if (lineNr == 2 && line != "Energy(eV) XS(b)") {
-                std::cerr << "Error: File '" << cross_section_text_file << "' is corrupted." << std::endl;
-            }
-            lineNr++;
-            continue;
-        }
+	int lineNr = 1;
+	std::string line;
+	while (getline(infile, line)) {
+		if (lineNr < 3) {
+			if (lineNr == 2 && line != "Energy(eV) XS(b)") {
+				std::cerr << "Error: File '" << file_name << "' is corrupted." << std::endl;
+				return energy_map;
+			}
+			lineNr++;
+			continue;
+		}
 
-        std::stringstream ss(line);
-        float energy, cross_section;
-        ss >> energy >> cross_section;
+		std::stringstream ss(line);
+		double energy, cross_section;
+		ss >> energy >> cross_section;
 
-        // Only consider energies within 0.5 eV and 10 MeV
-        if (0.5f <= energy && energy <= 10000000.0f) {
-            energy_cross_section_data.push_back(std::make_pair(energy, cross_section));
-        }
-    }
+		if (energy >= range_low && energy <= range_high) {
+			energy_map[energy] = cross_section;
+		}
+	}
 
-    infile.close();
+	infile.close();
 
-    float resonance_integral = 0.0f;
-    for (size_t i = 1; i < energy_cross_section_data.size(); ++i) {
-        float E1 = energy_cross_section_data[i - 1].first;
-	float E2 = energy_cross_section_data[i].first;
-	float sigma1 = energy_cross_section_data[i - 1].second;
-	float sigma2 = energy_cross_section_data[i].second;
+	return energy_map;
+}
 
-	float dE = E2 - E1;
-	float average_sigma = (sigma1 / E1 + sigma2 / E2) / 2.0f;
+inline std::vector<std::pair<double, double>> get_data(const char* file_name, double range_low=0.0, double range_high=10000000.0) {
+	std::ifstream file(file_name);
+	std::vector<std::pair<double, double>> data;
 
-	resonance_integral += average_sigma * dE;
-    }
+	if (!file) {
+		std::cerr << "Error: Unable to open file '" << file_name << "'." << std::endl;
+		return data;
+	}
 
-    std::cout << "( " << cross_section_text_file << " ) Resonance Integral : " << resonance_integral << std::endl;
-    return resonance_integral;
+	int lineNr = 1;
+	std::string line;
+	while (getline(file, line)) {
+		if (lineNr < 3) {
+			if (lineNr == 2 && line != "Energy(eV) XS(b)") {
+				std::cerr << "Error: File '" << file_name << "' is corrupted." << std::endl;
+				return data;
+			}
+			lineNr++;
+			continue;
+		}
+
+		std::stringstream ss(line);
+		float energy, cross_section;
+		ss >> energy >> cross_section;
+
+		if (energy >= range_low && energy <= range_high) {
+			data.emplace_back(energy, cross_section);
+		}
+	}
+
+	file.close();
+
+	return data;
+}
+
+// Returns the microscopic cross-section based on the inputs
+// PARAMETERS:
+// const std::vector<std::pair<double, double>>& data_vec = The vector containing all of the cross-sections
+// double requested_energy = The energy to recieve the cross-section from.
+inline float get_microscopic_cross_section(const std::vector<std::pair<double, double>>& data_vec, double requested_energy) {
+	auto lower = std::lower_bound(
+		data_vec.begin(), data_vec.end(), std::pair<double, double>(requested_energy, 0.0)
+	);
+
+	if (lower == data_vec.end()) {
+		return (lower - 1)->second;
+	} else if (lower == data_vec.begin()) {
+		return lower->second;
+	} else if (lower->first == requested_energy) {
+		return lower->second;
+	}
+
+	auto upper = lower;
+	lower--;
+	double slope = (upper->second - lower->second) / (upper->first - lower->first);
+	return lower->second + slope * (requested_energy - lower->first);
+}
+
+// Calculates the resonance integral for absorption
+// PARAMETERS:
+// const char* absorption_cross_section_file = The location of the file containing the microscopic absorption cross-section for the nuclide that is being calculated for.
+// float moderator_scattering = The macroscopic scattering cross-section of the moderator at thermal energies (around 0.0253 eV)
+inline float calculate_resonance_integral(const char* absorption_cross_section_file, float moderator_scattering) {
+	std::vector<std::pair<double, double>> data_vec = get_data(absorption_cross_section_file, 0.5, 1e7);
+
+	std::vector<std::pair<double, double>> total_data_vec = get_data("data/session_data/cross_sections/macroscopic/SYSTEM_TOTAL.txt", 0.5, 1e7);
+	const int N = data_vec.size()-1;
+	double deltaE = std::fabs(get_microscopic_cross_section(data_vec, 0.5) - get_microscopic_cross_section(data_vec, 1e7)) / N;
+	double sum = 0.0;
+
+	for (int i = 1; i <= N; i++) {
+		double e = i * deltaE;
+		double term = (
+			(moderator_scattering / get_microscopic_cross_section(total_data_vec, e)) *
+			(get_microscopic_cross_section(data_vec, e) / e)
+		);
+
+		if (i == 0 || i == N) {
+			sum += 0.5 * term;
+		} else {
+			sum += term;
+		}
+	}
+
+	return (float)(deltaE * sum);
 }

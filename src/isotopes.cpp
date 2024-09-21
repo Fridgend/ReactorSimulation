@@ -180,7 +180,7 @@ std::unordered_map<Isotope, std::unordered_map<std::string, float>> isotope_prop
 			{"molar_mass", 31.97207117354f}
 		}
 	},
-	
+
 	{ Cu63,
 		{
 			{"neutrons_per_fission", 0.0f},

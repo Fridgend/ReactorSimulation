@@ -3,7 +3,12 @@
 #include "isotopes.h"
 #include <vector>
 #include <utility>
+#include <map>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <ctime>
+#include <chrono>
 
 struct Material {
 	Material() : density(0.0f), molar_mass(0.0f), macroscopic_absorption_cross_section(0.0f) {}
@@ -12,9 +17,11 @@ struct Material {
 	void update_molar_mass();
 
 	std::string name;
+	std::string type;
 	std::vector<std::pair<Isotope, float>> composition;
 
 	float get_macroscopic_absorption_cross_section() { return this->macroscopic_absorption_cross_section; }
+	void write_total_macroscopic();
 
 protected:
 	float macroscopic_absorption_cross_section;
@@ -27,6 +34,7 @@ protected:
 struct smZircaloy2 : public Material {
 	smZircaloy2() {
 		this->name = "Zircaloy-2 (Grade R60802)";
+		this->type = "FUEL_CLADDING";
 		this->density = 6.55f;
 		this->composition = {
 			{Zr90, 0.985f},
@@ -46,6 +54,7 @@ struct smZircaloy2 : public Material {
 struct smSA508_Steel : public Material {
 	smSA508_Steel() {
 		this->name = "SA508 Gr.3 Steel";
+		this->type = "PRESSURE_VESSEL";
 		this->density = 7.85f;
 		this->composition = {
 			{C12, 0.0018f},
@@ -75,6 +84,7 @@ struct smSA508_Steel : public Material {
 struct BoronCarbide : public Material {
 	BoronCarbide() {
 		this->name = "Boron Carbide (B4C)";
+		this->type = "CONTROL_RODS";
 		this->density = 2.52f;
 		this->composition = {
 			{B10, 0.8f},
